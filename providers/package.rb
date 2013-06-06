@@ -129,6 +129,7 @@ def remove_package(name, version)
   Chef::Log.info("Registry provided uninstall string for #{@new_resource} is '#{uninstall_string}'")
   uninstall_command = begin
     if uninstall_string =~ /msiexec/i
+      uninstall_string = uninstall_string.gsub(/MsiExec.exe \/I/i, "MsiExec.exe \/x")
       "#{uninstall_string} /qn"
     else
       uninstall_string.gsub!('"','')
